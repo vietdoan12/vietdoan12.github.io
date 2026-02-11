@@ -60,6 +60,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             grid-auto-rows: 1fr;
+            grid-auto-flow: dense;
             gap: 6px;
             padding: 10px;
             z-index: -2;
@@ -69,7 +70,12 @@
         .collage img {
             width: 100%;
             height: 100%;
+            aspect-ratio: 1 / 1;
+            /* forces square */
             object-fit: cover;
+            /* fills square nicely */
+            object-position: center;
+            /* ensures center crop */
         }
 
         /* Soft dark overlay so text pops */
