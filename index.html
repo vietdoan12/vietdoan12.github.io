@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>💖 For You 💖</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            margin-top: 820px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        .no {
+            background-color: #555;
+            color: white;
+            position: absolute;
+        }
+
+        .next {
+            background-color: #ff85a2;
+            color: white;
+            font-size: 20px;
+        }
+
+        .collage {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-auto-rows: 1fr;
+            gap: 6px;
+            padding: 10px;
+            z-index: -2;
+            background: black;
+        }
+
+        .collage img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Soft dark overlay so text pops */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="collage">
+        <img src="toad.jpg">
+        <img src="lights.jpg">
+        <img src="paella.jpg">
+        <img src="ramen.jpg">
+        <img src="avocado_toast2.jpg">
+        <img src="cake.jpg">
+        <img src="big.jpg">
+        <img src="corn.jpg">
+        <img src="crashout.png">
+        <img src="grippers.jpg">
+        <img src="fancy.jpg">
+    </div>
+
+    <div class="overlay"></div>
+
+    <div class="container" id="app">
+        <h1 id="title">Will you be my Valentine? Catherine Nhu Quynh Phan 💘</h1>
+        <button class="yes" id="yesBtn">YES 💕</button>
+        <button class="no" id="noBtn">NO 💔</button>
+    </div>
+
+    <script>
+        const app = document.getElementById("app");
+        const noBtn = document.getElementById("noBtn");
+        const title = document.getElementById("title");
+        let noCount = 0;
+
+        const messages = [
+            ".......",
+            "I think your blind, put on your glasses",
+            "This button is decorative",
+            "You thought you could say no 😏"
+        ];
+
+        //Make NO button run away
+        noBtn.addEventListener("mouseenter", () => {
+            const btnRect = noBtn.getBoundingClientRect();
+
+            const padding = 10; // space from edges
+            const maxX = window.innerWidth - btnRect.width - padding;
+            const maxY = window.innerHeight - btnRect.height - padding;
+
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+
+            noBtn.style.position = "fixed";
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        noBtn.addEventListener("click", () => {
+            title.textContent = messages[noCount % messages.length];
+            noCount++;
+        });
+
+        // YES → Celebration
+        document.getElementById("yesBtn").addEventListener("click", () => {
+            app.innerHTML = `
+        <h1>YAY!!! 🎉💖</h1>
+        <p>I mean what else would you have said?</p>
+        <button class="next" id="nextBtn">One more question… 💭</button>
+      `;
+
+            document.getElementById("nextBtn").addEventListener("click", showProposal);
+        });
+
+        // Proposal screen
+        function showProposal() {
+            app.innerHTML = `
+        <h1>Will you marry me? 💍</h1>
+        <p>...bitch</p>
+        <button class="yes" onclick="finalYes()">YES 💖</button>
+      `;
+        }
+
+        function finalYes() {
+            app.innerHTML = `
+        <h1>💍 SHE SAID YES 💍</h1>
+        <p>HA HA sucka</p>
+        <p>❤️❤️❤️</p>
+      `;
+        }
+    </script>
+
+</body>
+
+</html>
